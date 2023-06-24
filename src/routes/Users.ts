@@ -1,12 +1,27 @@
 import { FastifyInstance } from 'fastify'
 import { prisma } from '../lib/prisma'
+import { z } from 'zod'
 
 export async function Users(app: FastifyInstance) {
   app.post('/users', async (request, reply) => {
-    await prisma.user.create({
-      data: { email: 'eduardo@email.com', name: 'eduardo', password: '123456' },
+    const bodySchema = z.object({
+      email: z.string().email(),
+      name: z.string(),
+      password: z.string().min(8),
     })
 
-    return reply.send('Hello world')
+    const { email, name, password } = bodySchema.parse(request.body)
+
+    const userExist = await prisma.user.findFirst({ where: { email } })
+
+    if (userExist) {
+      return reply.status(409).send('Email ja cadastrado')
+    }
+
+    await prisma.user.create({
+      data: { email, name, password },
+    })
+
+    return reply.send('Cadastro realizado com sucesso')
   })
 }
