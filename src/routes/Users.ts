@@ -3,7 +3,7 @@ import { prisma } from '../lib/prisma'
 import { z } from 'zod'
 import { hash } from 'bcrypt'
 
-export async function Users(app: FastifyInstance) {
+export async function UsersRoutes(app: FastifyInstance) {
   app.post('/users', async (request, reply) => {
     const bodySchema = z.object({
       email: z.string().email(),
