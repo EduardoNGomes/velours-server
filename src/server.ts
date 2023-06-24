@@ -4,13 +4,14 @@ import { join } from 'path'
 import jwt from '@fastify/jwt'
 import cookies from '@fastify/cookie'
 import type { FastifyCookieOptions } from '@fastify/cookie'
+import { env } from './env'
 
 // routes
 import { UsersRoutes } from './routes/Users'
 import { ProductsRoutes } from './routes/Products'
 import { AuthRoutes } from './routes/Auth'
 
-const app = fastify()
+export const app = fastify()
 
 app.register(multer.contentParser)
 
@@ -25,8 +26,6 @@ app.register(AuthRoutes)
 app.register(UsersRoutes)
 app.register(ProductsRoutes)
 
-const PORT = 3333
-
-app.listen({ port: PORT }).then(() => {
-  console.log('listening on port ', PORT)
+app.listen({ port: env.PORT }).then(() => {
+  console.log('listening on port ', env.PORT)
 })

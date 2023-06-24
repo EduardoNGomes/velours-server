@@ -16,7 +16,7 @@ export async function UsersRoutes(app: FastifyInstance) {
     const userExist = await prisma.user.findFirst({ where: { email } })
 
     if (userExist) {
-      return reply.status(409).send('Email ja cadastrado')
+      return reply.status(409).send('')
     }
     const hashedPassword = await hash(password, 10)
     await prisma.user.create({
