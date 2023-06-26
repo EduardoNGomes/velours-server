@@ -9,8 +9,9 @@
   "scripts": {
     "dev": "tsx --watch ./src/server.ts",
     "build": "tsup src --out-dir build ",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:copy": "ncp uploads build/uploads"
+    "build:copy": "ncp uploads build/uploads",
+    "build:setup": "mkdir -p build/uploads"
+
   },
   "keywords": [],
   "author": "Eduardo Gomes",
