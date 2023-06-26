@@ -30,6 +30,6 @@ app.register(UsersRoutes)
 app.register(ProductsRoutes)
 app.register(ImagesRoutes)
 
-app.listen({ port: env.PORT }).then(() => {
+app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('listening on port ', env.PORT)
 })
