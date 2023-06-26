@@ -12,7 +12,7 @@ export async function ProductsRoutes(app: FastifyInstance) {
     }
   })
   app.post(
-    '/products/:user_id',
+    '/products',
     { preHandler: upload.single('image') },
     async (request, reply) => {
       const bodySchema = z.object({
@@ -42,7 +42,7 @@ export async function ProductsRoutes(app: FastifyInstance) {
       return reply.send('Produto criado com sucesso')
     },
   )
-  app.get('/products/', async (request, reply) => {
+  app.get('/products', async (request, reply) => {
     const { sub } = request.user
 
     const products = await prisma.products.findMany({
@@ -63,14 +63,6 @@ export async function ProductsRoutes(app: FastifyInstance) {
     })
 
     return reply.status(200).send(product)
-  })
-  app.get('/products/image/:image', async (request, reply) => {
-    const paramsSchema = z.object({
-      image: z.string(),
-    })
-    const { image } = paramsSchema.parse(request.params)
-
-    return reply.sendFile(image)
   })
   app.put(
     '/products/:id',

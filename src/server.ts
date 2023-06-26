@@ -5,12 +5,13 @@ import jwt from '@fastify/jwt'
 import cookies from '@fastify/cookie'
 import type { FastifyCookieOptions } from '@fastify/cookie'
 import { env } from './env'
+import cors from '@fastify/cors'
 
 // routes
 import { UsersRoutes } from './routes/Users'
 import { ProductsRoutes } from './routes/Products'
 import { AuthRoutes } from './routes/Auth'
-import cors from '@fastify/cors'
+import { ImagesRoutes } from './routes/Image'
 
 export const app = fastify()
 
@@ -27,6 +28,7 @@ app.register(require('@fastify/static'), {
 app.register(AuthRoutes)
 app.register(UsersRoutes)
 app.register(ProductsRoutes)
+app.register(ImagesRoutes)
 
 app.listen({ port: env.PORT }).then(() => {
   console.log('listening on port ', env.PORT)
