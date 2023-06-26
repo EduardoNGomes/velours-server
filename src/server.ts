@@ -10,9 +10,11 @@ import { env } from './env'
 import { UsersRoutes } from './routes/Users'
 import { ProductsRoutes } from './routes/Products'
 import { AuthRoutes } from './routes/Auth'
+import cors from '@fastify/cors'
 
 export const app = fastify()
 
+app.register(cors, { origin: true, credentials: true })
 app.register(multer.contentParser)
 
 app.register(jwt, { secret: 'loocked' })
