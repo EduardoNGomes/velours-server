@@ -10,7 +10,7 @@
     "dev": "tsx --watch ./src/server.ts",
     "build": "tsup src --out-dir build ",
     "build:copy": "ncp uploads build/uploads",
-    "build:setup": "mkdir -p build/uploads"
+    "build:setup": "mkdir -p uploads"
 
   },
   "keywords": [],
