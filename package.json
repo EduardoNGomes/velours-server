@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "tsx --watch ./src/server.ts",
     "build": "tsup src --out-dir build ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:copy": "ncp uploads build/uploads"
   },
   "keywords": [],
   "author": "Eduardo Gomes",
@@ -32,6 +33,7 @@
     "@types/node": "^20.3.1",
     "@types/supertest": "^2.0.12",
     "eslint": "^8.43.0",
+    "ncp": "^2.0.0",
     "prisma": "^4.16.1",
     "supertest": "^6.3.3",
     "tsup": "^7.1.0",
