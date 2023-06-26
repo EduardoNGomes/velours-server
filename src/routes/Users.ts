@@ -1,8 +1,9 @@
 import { FastifyInstance } from 'fastify'
 import { prisma } from '../lib/prisma'
 import { z } from 'zod'
+import { hash } from 'bcrypt'
 
-export async function Users(app: FastifyInstance) {
+export async function UsersRoutes(app: FastifyInstance) {
   app.post('/users', async (request, reply) => {
     const bodySchema = z.object({
       email: z.string().email(),
@@ -15,11 +16,11 @@ export async function Users(app: FastifyInstance) {
     const userExist = await prisma.user.findFirst({ where: { email } })
 
     if (userExist) {
-      return reply.status(409).send('Email ja cadastrado')
+      return reply.status(409).send('')
     }
-
+    const hashedPassword = await hash(password, 10)
     await prisma.user.create({
-      data: { email, name, password },
+      data: { email, name, password: hashedPassword },
     })
 
     return reply.send('Cadastro realizado com sucesso')
