@@ -5,7 +5,6 @@
 <p align="center">
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licença">Licença</a>
 </p>
 
@@ -34,6 +33,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - criar o arquivo .env no seu projeto, similar ao .env-example
 - Executar o comando ```npx prisma migrate dev```
 - Executar o comando ```npm rum dev```
+
+#### Para testar toda a aplicação utilize o Front-End
+[Your List-Web](https://github.com/EduardoNGomes/velours-web/tree/main)
 
 ## EndPoints
 
