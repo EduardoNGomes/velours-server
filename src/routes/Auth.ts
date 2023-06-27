@@ -34,7 +34,7 @@ export async function AuthRoutes(app: FastifyInstance) {
           sameSite: 'none',
         })
         .code(200)
-        .send('Authenticated')
+        .send({ message: 'Authenticated', token })
     } else {
       reply.code(401).send('your email or password wrong!')
     }

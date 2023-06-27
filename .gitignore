@@ -2,7 +2,7 @@ node_modules
 .env
 .env.test
 prisma/*.db
-uploads/*.*
+uploads/*.png/jpeg
 build
 dist
 src/uploads
