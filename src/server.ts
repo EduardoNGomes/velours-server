@@ -15,7 +15,19 @@ import { ImagesRoutes } from './routes/Image'
 
 export const app = fastify()
 
-app.register(cors, { origin: true, credentials: true })
+app.register(cors, {
+  origin: true,
+  credentials: true,
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+    'Cookie',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+})
 app.register(multer.contentParser)
 
 app.register(jwt, { secret: 'loocked' })
