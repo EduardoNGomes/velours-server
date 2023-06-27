@@ -5,3 +5,4 @@ prisma/*.db
 uploads/*.*
 build
 dist
+src/uploads

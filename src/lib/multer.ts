@@ -2,7 +2,7 @@ import multer from 'fastify-multer'
 import { resolve } from 'path'
 import crypto from 'crypto'
 
-export const UPLOAD = resolve(__dirname, '../../uploads')
+export const UPLOAD = resolve(__dirname, '../uploads')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

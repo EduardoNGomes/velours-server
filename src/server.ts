@@ -34,7 +34,7 @@ app.register(jwt, { secret: 'loocked' })
 app.register(cookies, {} as FastifyCookieOptions)
 
 app.register(require('@fastify/static'), {
-  root: join(__dirname, '../uploads'),
+  root: join(__dirname, './uploads'),
 })
 // Routes
 app.register(AuthRoutes)
