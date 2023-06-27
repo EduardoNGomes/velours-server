@@ -28,7 +28,11 @@ export async function AuthRoutes(app: FastifyInstance) {
 
     if (token) {
       return reply
-        .setCookie('token', token, { secure: true, path: '/' })
+        .setCookie('token', token, {
+          secure: true,
+          path: '/',
+          sameSite: 'none',
+        })
         .code(200)
         .send('Authenticated')
     } else {
