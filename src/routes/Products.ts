@@ -1,7 +1,11 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '../lib/prisma'
-import { upload } from '../lib/multer'
+import { prisma } from '../config/prisma'
+import { MULTER } from '../config/multer'
+import multer from 'fastify-multer'
+import { DiskStorage } from '../provider/DiskStorage'
+
+const upload = multer(MULTER)
 
 export async function ProductsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', async (request, reply) => {
@@ -20,19 +24,21 @@ export async function ProductsRoutes(app: FastifyInstance) {
         description: z.string(),
         price: z.coerce.number(),
       })
-
       const { price, description, name } = bodySchema.parse(request.body)
       const { sub } = request.user
-      const image = request.file
+      const imageFilename = request.file.filename
 
-      if (!image) {
+      if (!imageFilename) {
         return reply.status(406).send('Please choose a valid image')
       }
+
+      const diskStorage = new DiskStorage()
+      const filename = await diskStorage.saveFile(imageFilename)
 
       await prisma.products.create({
         data: {
           description,
-          coverUrl: image.filename,
+          coverUrl: filename,
           name,
           price,
           userId: sub,
@@ -79,7 +85,7 @@ export async function ProductsRoutes(app: FastifyInstance) {
       const { id } = paramsSchema.parse(request.params)
       const { sub } = request.user
       const { price, description, name } = bodySchema.parse(request.body)
-      const image = request.file
+      const imageFilename = request.file.filename
 
       const product = await prisma.products.findUniqueOrThrow({
         where: { id },
@@ -89,12 +95,20 @@ export async function ProductsRoutes(app: FastifyInstance) {
         throw new Error('Usuario invalido')
       }
 
+      const diskStorage = new DiskStorage()
+
+      let filename = ''
+      if (product.coverUrl && imageFilename) {
+        await diskStorage.deleteFile(imageFilename)
+        filename = await diskStorage.saveFile(imageFilename)
+      }
+
       await prisma.products.update({
         data: {
           name: name || product.name,
           description: description || product.description,
           price: price || product.price,
-          coverUrl: image ? image.filename : product.coverUrl,
+          coverUrl: filename || product.coverUrl,
         },
         where: { id },
       })

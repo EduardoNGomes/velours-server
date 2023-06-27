@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { prisma } from '../lib/prisma'
+import { prisma } from '../config/prisma'
 import { z } from 'zod'
 import { hash } from 'bcrypt'
 

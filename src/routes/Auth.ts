@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '../lib/prisma'
+import { prisma } from '../config/prisma'
 import { compare } from 'bcrypt'
 
 export async function AuthRoutes(app: FastifyInstance) {
