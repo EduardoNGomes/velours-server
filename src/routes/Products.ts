@@ -32,13 +32,13 @@ export async function ProductsRoutes(app: FastifyInstance) {
         return reply.status(406).send('Please choose a valid image')
       }
 
-      const diskStorage = new DiskStorage()
-      const filename = await diskStorage.saveFile(imageFilename)
+      // const diskStorage = new DiskStorage()
+      // const filename = await diskStorage.saveFile(imageFilename)
 
       await prisma.products.create({
         data: {
           description,
-          coverUrl: filename,
+          coverUrl: imageFilename,
           name,
           price,
           userId: sub,
@@ -97,10 +97,10 @@ export async function ProductsRoutes(app: FastifyInstance) {
 
       const diskStorage = new DiskStorage()
 
-      let filename = ''
+      // let filename = ''
       if (product.coverUrl && imageFilename) {
         await diskStorage.deleteFile(imageFilename)
-        filename = await diskStorage.saveFile(imageFilename)
+        // filename = await diskStorage.saveFile(imageFilename)
       }
 
       await prisma.products.update({
@@ -108,7 +108,7 @@ export async function ProductsRoutes(app: FastifyInstance) {
           name: name || product.name,
           description: description || product.description,
           price: price || product.price,
-          coverUrl: filename || product.coverUrl,
+          coverUrl: imageFilename || product.coverUrl,
         },
         where: { id },
       })

@@ -12,6 +12,7 @@ import { UsersRoutes } from './routes/Users'
 import { ProductsRoutes } from './routes/Products'
 import { AuthRoutes } from './routes/Auth'
 import { ImagesRoutes } from './routes/Image'
+import { TMP_FOLDER } from './config/multer'
 
 export const app = fastify()
 
@@ -34,7 +35,7 @@ app.register(jwt, { secret: 'loocked' })
 app.register(cookies, {} as FastifyCookieOptions)
 
 app.register(require('@fastify/static'), {
-  root: join(__dirname, '..', 'tmp', 'uploads'),
+  root: join(TMP_FOLDER),
 })
 // Routes
 app.register(AuthRoutes)
