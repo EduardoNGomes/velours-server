@@ -37,10 +37,23 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## EndPoints
 
-- Executar o comando ```npm intall```
-- criar o arquivo .env no seu projeto, similar ao .env-example
-- Executar o comando ```npx prisma migrate dev```
-- Executar o comando ```npm rum dev```
+### User
+
+- POST /users (name, email, password(min - 8))
+
+### Auth
+- POST /auth (email, password)
+
+### Products
+- POST /products (name, description, price, image(file))
+- PUT /products/:id (name, description, price, image(file))
+- GET /products
+- GET /products/:id
+- DEL /products/:id
+
+### Image
+- GET /products/:image
+  
 
 ## Licença
 
