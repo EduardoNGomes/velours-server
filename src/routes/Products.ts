@@ -82,7 +82,7 @@ export async function ProductsRoutes(app: FastifyInstance) {
       const { id } = paramsSchema.parse(request.params)
       const { sub } = request.user
       const { price, description, name } = bodySchema.parse(request.body)
-      const imageFilename = request.file.filename
+      const image = request.file
 
       const product = await prisma.products.findUniqueOrThrow({
         where: { id },
@@ -94,9 +94,8 @@ export async function ProductsRoutes(app: FastifyInstance) {
 
       const diskStorage = new DiskStorage()
 
-      // let filename = ''
-      if (product.coverUrl && imageFilename) {
-        await diskStorage.deleteFile(imageFilename)
+      if (product.coverUrl && image) {
+        await diskStorage.deleteFile(product.coverUrl)
       }
 
       await prisma.products.update({
@@ -104,7 +103,7 @@ export async function ProductsRoutes(app: FastifyInstance) {
           name: name || product.name,
           description: description || product.description,
           price: price || product.price,
-          coverUrl: imageFilename || product.coverUrl,
+          coverUrl: image ? image.filename : product.coverUrl,
         },
         where: { id },
       })
